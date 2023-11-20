@@ -4,26 +4,31 @@ import openPhotoSrc from '/openPhoto.jpg';
 import locationInfo from '/2021091303064111.jpg';
 import zipCodeJson from '../assets/taiwan_districts.json';
 
+
 export const ImgOpenphoto = component$(() => {  
   return (
     <div class={'p-4 bg-red-100 flex items-center justify-center'}>
-      <img class={'w-full h-full rounded'} src={openPhotoSrc} 
+      <img class={'w-full h-full rounded'} src={openPhotoSrc}
         width={1920} height={1080}
       />
     </div>
   )
 });
 
+
 export default component$(() => {
   // 表單資料內容
-  const name = useSignal("");
-  const willingness = useSignal("");
-  const phone = useSignal("");
-  const zipcode = useSignal("");
-  const address = useSignal("");
-  const vegetarianNum = useSignal("");
-  const partnerNum = useSignal("");
-  const childSeatNum = useSignal("");
+  const formData = useSignal({
+    name : { check : false , value : '' , title : '姓名'},
+    willingness : { check : false , value : '' , title : '出席意願'},
+    phone : { check : false , value : '' , title : '電話'},
+    zipcode : { check : false , value : '' , title : '地址'},
+    address : { check : false , value : '' , title : '地址'},
+    vegetarianNum : { check : false , value : '' , title : '素食者人數'},
+    partnerNum : { check : false , value : '' , title : '同行者人數'},
+    childSeatNum : { check : false , value : '' , title : '兒童座椅數量'},
+  },)
+
 
   // 縣市郵遞區號
   const zipJson = useSignal(zipCodeJson);
@@ -39,11 +44,6 @@ export default component$(() => {
     }
     handleZipCode()
   })
-  // 控制表單送出
-  const handleSubmitForm = $((values, event) => {
-    // Runs on client
-    console.log(values);
-  });
   // loading 效果
   const isLoading = useSignal(true);
   const isBgColor = useSignal(true);
@@ -63,6 +63,11 @@ export default component$(() => {
     cleanup(() => clearTimeout(timeoutFirst));
     cleanup(() => clearTimeout(timeoutSecond));
   })
+ 
+  // Modal content
+  const message = useSignal('');
+  const modalCtl = useSignal(false)
+
 
   return (
     <>
@@ -93,8 +98,8 @@ export default component$(() => {
         </div>
       </div>
       {
-        isLoading.value ? 
-        <div id="loading" 
+        isLoading.value ?
+        <div id="loading"
           class={['fixed z-50 top-0 left-0 h-full flex justify-center items-center bg-gray-100 w-full transition-all ease-linear',isBgColor.value ? '' : 'opacity-0']}
         >
           <div class={'text-center'}>
@@ -112,19 +117,22 @@ export default component$(() => {
           </p>
         </div>
         <div class={"bg-white text-gray-600 absolute top-[11%] xxs:top-[10%] xs:top-[9%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
-          <img class={'w-full rounded'} src={locationInfo} 
+          <img class={'w-full rounded'} src={locationInfo}
             width={1920} height={1080}
           />
         </div>
         <div class={"bg-white opacity-90 text-gray-600 absolute top-[30%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
           <div class={"container center"}>
-            <Form onSubmit$={handleSubmitForm}>
+            <Form>
               <div class={'mt-2 mb-3'}>
                 <label class={'mb-1'}>請問您的姓名？</label>
                 <input type="text" name="text" required placeholder="請輸入您的姓名"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
-                    name.value = (event.target as HTMLInputElement).value
+                    formData.value.name.value = (event.target as HTMLInputElement).value
+                    if((event.target as HTMLInputElement).value){
+                      formData.value.name.check = false
+                    }
                   }}
                 />  
               </div>
@@ -133,7 +141,7 @@ export default component$(() => {
                 <select required
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onChange$={(event)=>{
-                    willingness.value = (event.target as HTMLSelectElement).value
+                    formData.value.willingness.value = (event.target as HTMLSelectElement).value
                   }}
                 >
                   <option value="" selected disabled>您的意願？</option>
@@ -147,7 +155,7 @@ export default component$(() => {
                 <input type="tel" name="phone" required placeholder="請輸入您的聯絡電話"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
-                    phone.value = (event.target as HTMLInputElement).value
+                    formData.value.phone.value = (event.target as HTMLInputElement).value
                   }}
                 />  
               </div>
@@ -159,7 +167,7 @@ export default component$(() => {
                     onSelCity.value = (event.target as HTMLSelectElement).value,
                     zipJson.value.forEach((item) => {
                       if(item.name === onSelCity.value){
-                        district.value = item.districts 
+                        district.value = item.districts
                       }
                     })
                   }}
@@ -172,19 +180,19 @@ export default component$(() => {
                 <select required
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 p-1 w-1/2"
                   onChange$={(event)=>{
-                    zipcode.value = (event.target as HTMLSelectElement).value
+                    formData.value.zipcode.value = (event.target as HTMLSelectElement).value
                   }}
                 >
+                  <option value={''} selected>請選擇您居住的區域</option>
                   {district.value.length > 1 ? district.value.map((item) => {
                     return <option value={item.zip} key={item.zip}>{item.name}</option>
-                  }) : 
-                    <option value={''}>請選擇您居住的區域</option>
+                  }) : ''
                   }
                 </select>
                 <input type="text" name="text" required placeholder="請輸入您可以收到喜帖的地址"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
-                    address.value = (event.target as HTMLInputElement).value
+                    formData.value.address.value = (event.target as HTMLInputElement).value
                   }}
                 />
               </div>
@@ -193,7 +201,7 @@ export default component$(() => {
                 <input type="number" name="text" required placeholder="人數請包含自己唷，方便我們分配桌數"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
-                    partnerNum.value = (event.target as HTMLInputElement).value
+                    formData.value.partnerNum.value = (event.target as HTMLInputElement).value
                   }}
                 />  
               </div>
@@ -202,7 +210,7 @@ export default component$(() => {
                 <input type="number" name="text" required placeholder="還請一併考量同行親友"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
-                    vegetarianNum.value = (event.target as HTMLInputElement).value
+                    formData.value.vegetarianNum.value = (event.target as HTMLInputElement).value
                   }}
                 />  
               </div>
@@ -211,7 +219,7 @@ export default component$(() => {
                 <input type="number" name="text" required placeholder="如不需要，請選擇 0"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
-                    childSeatNum.value = (event.target as HTMLInputElement).value
+                    formData.value.childSeatNum.value = (event.target as HTMLInputElement).value
                   }}
                 />  
               </div>
@@ -221,7 +229,6 @@ export default component$(() => {
                 </span>
                 <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" ><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" fill="#4B5563" /></svg>
               </div>
-              <button id="submitBtn" type="submit"></button>
             </Form>
           </div>
         </div>
@@ -233,23 +240,86 @@ export default component$(() => {
           <p>我們期待您的到來！</p>
         </div>
         <div class={"bg-white opacity-90 text-white absolute top-[75%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg flex justify-center"}>
-          <button 
+          <button
             class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2'}
             onClick$={()=>{
-              const submit = document.querySelector<HTMLButtonElement>('#submitBtn')
-              if(submit != null){
-                submit.click()
+              // 創建一個新的 FormData 對象
+              const postForm = new FormData();
+              // 將表單資料添加到 FormData 對象中
+              postForm.append('name', formData.value.name.value);
+              postForm.append('willingness', formData.value.willingness.value);
+              postForm.append('phone', formData.value.phone.value);
+              postForm.append('zipcode', formData.value.zipcode.value);
+              postForm.append('address', formData.value.address.value);
+              postForm.append('vegetarianNum', formData.value.vegetarianNum.value);
+              postForm.append('partnerNum', formData.value.partnerNum.value);
+              postForm.append('childSeatNum', formData.value.childSeatNum.value);
+
+
+              let array = Object.values(formData.value)
+              for(let i=0 ; i<array.length ; i++ ){
+                if(array[i].value == ''){
+                  array[i].check = true
+                }else{
+                  array[i].check = false
+                }
+                if(array[i].check){
+                  message.value = `請填寫${array[i].title}欄位,謝謝`
+                  modalCtl.value = true
+                  return
+                }
               }
+              const apiUrl = 'https://script.google.com/macros/s/AKfycbwqtqwnwLIqvSpS22e8eC5XsiyEeHumgC75VbiOJm715U0wtGHRdMZ05KWshMcKzSDCZA/exec';
+              const fetchOptions: RequestInit = {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json' // 設定傳送資料的類型為 JSON
+                },
+                body:postForm
+              };
+              fetch(apiUrl,fetchOptions)
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                console.log('API 傳回的資料:', data);
+              })
+              .catch(error => {
+                console.error('發生錯誤:', error);
+              });
             }}
           >
             送出資料!
           </button>
         </div>
+        {modalCtl.value ?
+          <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
+            <div class="absolute bg-black opacity-70 inset-0 z-0"></div>
+            <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+              <div class="">          
+                <div class="p-3  mt-2 text-center space-x-4 md:block">
+                  <p class="text-gray-600 text-lg font-semibold mb-2">{message.value}</p>
+                  <button onClick$={()=>{
+                    message.value = ''
+                    modalCtl.value = false
+                  }}
+                    class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
+                    OK!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div> : ''
+        }
         <div id="scrolly-video"></div>
       </div>
     </>
   );
 });
+
 
 export const head: DocumentHead = {
   title: "ROY & BUCCULA",
@@ -260,3 +330,5 @@ export const head: DocumentHead = {
     },
   ],
 };
+
+
