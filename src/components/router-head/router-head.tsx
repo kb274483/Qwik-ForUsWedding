@@ -15,7 +15,8 @@ export const RouterHead = component$(() => {
       <link rel="canonical" href={loc.url.href} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
+      <script src="https://kit.fontawesome.com/e11e03df8b.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/scrolly-video@latest/dist/scrolly-video.js"></script>
       {head.meta.map((m) => (
         <meta key={m.key} {...m} />
       ))}
