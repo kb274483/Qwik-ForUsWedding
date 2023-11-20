@@ -1,7 +1,6 @@
-import { $, component$ , useVisibleTask$ ,useSignal,useTask$ } from "@builder.io/qwik";
+import { component$ , useVisibleTask$ ,useSignal,useTask$ } from "@builder.io/qwik";
 import { type DocumentHead , Form } from "@builder.io/qwik-city";
-import openPhotoSrc from '/openPhoto.jpg';
-import locationInfo from '/2021091303064111.jpg';
+import openPhotoSrc from '../assets/openPhoto.jpg';
 import zipCodeJson from '../assets/taiwan_districts.json';
 
 
@@ -32,8 +31,8 @@ export default component$(() => {
 
   // 縣市郵遞區號
   const zipJson = useSignal(zipCodeJson);
-  const city = useSignal([]);
-  const district = useSignal([]);
+  const city = useSignal([] as any);
+  const district = useSignal([] as any);
   const onSelCity = useSignal("");
   // 處理縣市郵遞區號
   useTask$(()=>{
@@ -54,7 +53,7 @@ export default component$(() => {
       `
       new ScrollyVideo({
         scrollyVideoContainer: "scrolly-video",
-        src: "/hotairballoon.mov",
+        src: "https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/videos/hotairballoon.mov",
       });
     `
     document.head.appendChild(script);
@@ -117,7 +116,7 @@ export default component$(() => {
           </p>
         </div>
         <div class={"bg-white text-gray-600 absolute top-[11%] xxs:top-[10%] xs:top-[9%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
-          <img class={'w-full rounded'} src={locationInfo}
+          <img class={'w-full rounded'} src={'../assets/2021091303064111.jpg'}
             width={1920} height={1080}
           />
         </div>
@@ -173,7 +172,7 @@ export default component$(() => {
                   }}
                 >
                   <option value={''} selected disabled>請選擇您居住的縣市</option>
-                  {city.value.map((item) => {
+                  {city.value.map((item:any) => {
                     return <option value={item} key={item}>{item}</option>
                   })}
                 </select>
@@ -184,7 +183,7 @@ export default component$(() => {
                   }}
                 >
                   <option value={''} selected>請選擇您居住的區域</option>
-                  {district.value.length > 1 ? district.value.map((item) => {
+                  {district.value.length > 1 ? district.value.map((item:any) => {
                     return <option value={item.zip} key={item.zip}>{item.name}</option>
                   }) : ''
                   }
@@ -256,7 +255,7 @@ export default component$(() => {
               postForm.append('childSeatNum', formData.value.childSeatNum.value);
 
 
-              let array = Object.values(formData.value)
+              const array = Object.values(formData.value)
               for(let i=0 ; i<array.length ; i++ ){
                 if(array[i].value == ''){
                   array[i].check = true
