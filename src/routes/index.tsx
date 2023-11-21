@@ -238,6 +238,8 @@ export default component$(() => {
           <button
             class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2 text-gray-100 mt-2'}
             onClick$={()=>{
+              isLoading.value = true
+              isBgColor.value = true
               // 創建一個新的 Form
               const postForm = new FormData();
               // 將表單資料添加到 FormData 對象中
@@ -272,14 +274,17 @@ export default component$(() => {
                 mode: 'no-cors',
                 body:postForm,
               };
-              isLoading.value = true
-              isBgColor.value = true
               fetch(apiUrl,fetchOptions)
               .then(() => {
-                message.value = '資料已成功送出，謝謝您的填寫！'
-                modalCtl.value = true
                 isBgColor.value = false
                 isLoading.value = false
+                message.value = '資料已成功送出，謝謝您的填寫！'
+                for(let i=0 ; i<array.length ; i++ ){
+                  array[i].value = ''
+                }
+                setTimeout(() => {
+                  modalCtl.value = true
+                }, 500);
               })
               .catch(error => {
                 console.error('發生錯誤:', error);
