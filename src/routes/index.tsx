@@ -58,8 +58,8 @@ export default component$(() => {
       });
     `
     document.head.appendChild(script);
-    const timeoutFirst = setTimeout(() => (isBgColor.value = false), 2000);
-    const timeoutSecond = setTimeout(() => (isLoading.value = false), 2500);
+    const timeoutFirst = setTimeout(() => (isBgColor.value = false), 1000);
+    const timeoutSecond = setTimeout(() => (isLoading.value = false), 1500);
     cleanup(() => clearTimeout(timeoutFirst));
     cleanup(() => clearTimeout(timeoutSecond));
   })
@@ -107,7 +107,7 @@ export default component$(() => {
           </div>
         </div> : ''
       }
-      <div class={'h-[400vh] relative'}>
+      <div class={'h-[300vh] relative'}>
         <div class={"bg-white opacity-90 text-gray-600 absolute top-[5%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
           <p>日期 Date：2024/03/10(週日Sunday)</p>
           <p>時間 Time：11:50 婚宴入席 12:00 婚宴開始</p>
@@ -197,8 +197,8 @@ export default component$(() => {
                 />
               </div>
               <div class={'mt-2 mb-3'}>
-                <label class={'mb-1'}>請問您的共幾個人出席？</label>
-                <input type="number" name="text" required placeholder="人數請包含自己唷，方便我們分配桌數"
+                <label class={'mb-1'}>請問您出席人數共幾位？</label>
+                <input type="number" name="text" required placeholder="請填寫阿拉伯數字即可，人數請包含自己唷！"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
                     formData.value.partnerNum.value = (event.target as HTMLInputElement).value
@@ -207,7 +207,7 @@ export default component$(() => {
               </div>
               <div class={'mt-2 mb-3'}>
                 <label class={'mb-1'}>請問您素食需求人數？</label>
-                <input type="number" name="text" required placeholder="還請一併考量同行親友"
+                <input type="number" name="text" required placeholder="請填寫阿拉伯數字即可，還請一併考量同行親友"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
                     formData.value.vegetarianNum.value = (event.target as HTMLInputElement).value
@@ -216,7 +216,7 @@ export default component$(() => {
               </div>
               <div class={'mt-2 mb-3'}>
                 <label class={'mb-1'}>請問您需要幾張兒童座椅？</label>
-                <input type="number" name="text" required placeholder="如不需要，請選擇 0"
+                <input type="number" name="text" required placeholder="如不需要，請填寫 0"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
                     formData.value.childSeatNum.value = (event.target as HTMLInputElement).value
@@ -232,12 +232,12 @@ export default component$(() => {
             </Form>
           </div>
         </div>
-        <div class={"bg-white opacity-90 text-gray-600 absolute top-[65%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg text-center"}>
-          <p>超級感謝！您的填寫，剩下最後一步了！</p>
-          <p>最後請您按下下方的送出資料！</p>
-          <p>我們期待您的到來！</p>
+        <div class={"bg-white opacity-90 absolute top-[65%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg text-center"}>
+          <p class={'text-gray-600 '}>超級感謝！您的填寫，剩下最後一步了！</p>
+          <p class={'text-gray-600 '}>最後請您按下下方的送出資料！</p>
+          <p class={'text-gray-600 '}>我們期待您的到來！</p>
           <button
-            class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2 text-white'}
+            class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2 text-gray-100 mt-2'}
             onClick$={()=>{
               // 創建一個新的 FormData 對象
               const postForm = new FormData();
