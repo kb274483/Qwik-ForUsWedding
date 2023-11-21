@@ -6,9 +6,12 @@ import zipCodeJson from '../assets/taiwan_districts.json';
 
 export const ImgOpenphoto = component$(() => {  
   return (
-    <div class={'p-4 bg-red-100 flex items-center justify-center'}>
+    <div class={'p-4 bg-red-100'}>
+      <p class={'text-white font-medium text-2xl text-end'}>
+        Wedding Invitation
+      </p>
       <img class={'w-full h-full rounded'} src={openPhotoSrc}
-        width={1920} height={1080}
+        width={1024} height={683}
       />
     </div>
   )
@@ -67,7 +70,7 @@ export default component$(() => {
 
   return (
     <>
-      <div class={'h-[100vh] relative flex items-center justify-center px-2'}>
+      <div class={'h-[95vh] relative flex items-center justify-center p-2 max-w-[800px] mx-auto'}>
         <div>
           <ImgOpenphoto></ImgOpenphoto>
           <p class={'text-red-400 font-medium text-2xl mt-4'}>
@@ -103,8 +106,8 @@ export default component$(() => {
           </div>
         </div> : ''
       }
-      <div class={'h-[400vh] relative'}>
-        <div class={"bg-white opacity-90 text-gray-600 absolute top-[10%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
+      <div class={'h-[400vh] relative max-w-[800px] mx-auto'}>
+        <div class={"bg-white opacity-80 text-gray-600 absolute top-[10%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
           <p>日期 Date：2024/03/10(週日Sunday)</p>
           <p>時間 Time：11:50 婚宴入席 12:00 婚宴開始</p>
           <p>
@@ -228,7 +231,7 @@ export default component$(() => {
             </Form>
           </div>
         </div>
-        <div class={"bg-white opacity-90 absolute bottom-[20px] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg text-center"}>
+        <div class={"bg-white opacity-70 absolute bottom-[5%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg text-center"}>
           <p class={'text-gray-600 '}>超級感謝！您的填寫，剩下最後一步了！</p>
           <p class={'text-gray-600 '}>最後請您按下下方的送出資料！</p>
           <p class={'text-gray-600 '}>我們期待您的到來！</p>
