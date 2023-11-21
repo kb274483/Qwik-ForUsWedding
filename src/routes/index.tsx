@@ -1,6 +1,7 @@
 import { component$ , useVisibleTask$ ,useSignal,useTask$ } from "@builder.io/qwik";
 import { type DocumentHead , Form } from "@builder.io/qwik-city";
 import openPhotoSrc from '../assets/openPhoto.jpg';
+import locationInfo from '../assets/2021091303064111.jpg';
 import zipCodeJson from '../assets/taiwan_districts.json';
 
 
@@ -116,7 +117,7 @@ export default component$(() => {
           </p>
         </div>
         <div class={"bg-white text-gray-600 absolute top-[11%] xxs:top-[10%] xs:top-[9%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
-          <img class={'w-full rounded'} src={'../assets/2021091303064111.jpg'}
+          <img class={'w-full rounded'} src={locationInfo}
             width={1920} height={1080}
           />
         </div>
