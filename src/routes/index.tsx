@@ -55,8 +55,8 @@ export default component$(() => {
       });
     `
     document.head.appendChild(script);
-    const timeoutFirst = setTimeout(() => (isBgColor.value = false), 1000);
-    const timeoutSecond = setTimeout(() => (isLoading.value = false), 1500);
+    const timeoutFirst = setTimeout(() => (isBgColor.value = false), 1500);
+    const timeoutSecond = setTimeout(() => (isLoading.value = false), 2000);
     cleanup(() => clearTimeout(timeoutFirst));
     cleanup(() => clearTimeout(timeoutSecond));
   })
@@ -96,15 +96,15 @@ export default component$(() => {
       { // Loading 效果
         isLoading.value ?
         <div id="loading"
-          class={['fixed z-50 top-0 left-0 h-full flex justify-center items-center bg-gray-100 w-full transition-all ease-linear',isBgColor.value ? '' : 'opacity-0']}
+          class={['fixed z-50 top-0 left-0 h-full flex justify-center items-center bg-gray-100 w-full transition-all ease-in-out duration-1000',isBgColor.value ? '' : 'opacity-0']}
         >
           <div class={'text-center'}>
             <svg class="animate-spin h-16 w-16 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
           </div>
         </div> : ''
       }
-      <div class={'h-[300vh] relative'}>
-        <div class={"bg-white opacity-90 text-gray-600 absolute top-[5%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
+      <div class={'h-[400vh] relative'}>
+        <div class={"bg-white opacity-90 text-gray-600 absolute top-[10%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
           <p>日期 Date：2024/03/10(週日Sunday)</p>
           <p>時間 Time：11:50 婚宴入席 12:00 婚宴開始</p>
           <p>
@@ -112,12 +112,12 @@ export default component$(() => {
             <span class={'block ml-[8rem]'}>新莊典華婚宴會館（法蘿廳）</span>
           </p>
         </div>
-        <div class={"bg-white text-gray-600 absolute top-[11%] xxs:top-[10%] xs:top-[9%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
+        <div class={"bg-white text-gray-600 absolute top-[17%] xxs:top-[16%] xs:top-[15%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
           <img class={'w-full rounded'} src={locationInfo}
             width={1920} height={1080}
           />
         </div>
-        <div class={"bg-white opacity-90 text-gray-600 absolute top-[30%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
+        <div class={"bg-white opacity-90 text-gray-600 absolute top-[50%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
           <div class={"container center"}>
             <Form>
               <div class={'mt-2 mb-3'}>
@@ -140,7 +140,7 @@ export default component$(() => {
                     formData.value.willingness.value = (event.target as HTMLSelectElement).value
                   }}
                 >
-                  <option value="" selected disabled>您的意願？</option>
+                  <option value="" selected disabled>您的出席意願？</option>
                   <option value="1">Yes, 你結婚當然要到場啊！</option>
                   <option value="2">Sorry, 我很想參加，但是當天無法出席</option>
                   <option value="3">Not sure yet , 日期近一點才能確認</option>
@@ -228,7 +228,7 @@ export default component$(() => {
             </Form>
           </div>
         </div>
-        <div class={"bg-white opacity-90 absolute top-[65%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg text-center"}>
+        <div class={"bg-white opacity-90 absolute bottom-[20px] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg text-center"}>
           <p class={'text-gray-600 '}>超級感謝！您的填寫，剩下最後一步了！</p>
           <p class={'text-gray-600 '}>最後請您按下下方的送出資料！</p>
           <p class={'text-gray-600 '}>我們期待您的到來！</p>
