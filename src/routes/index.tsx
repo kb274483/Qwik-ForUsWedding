@@ -1,9 +1,8 @@
 import { component$ , useVisibleTask$ ,useSignal,useTask$ } from "@builder.io/qwik";
 import { type DocumentHead , Form } from "@builder.io/qwik-city";
-import openPhotoSrc from '../assets/openPhoto.jpg';
+import openPhotoSrc from '../assets/53346273673.jpg';
 import locationInfo from '../assets/2021091303064111.jpg';
 import zipCodeJson from '../assets/taiwan_districts.json';
-
 
 export const ImgOpenphoto = component$(() => {  
   return (
@@ -14,7 +13,6 @@ export const ImgOpenphoto = component$(() => {
     </div>
   )
 });
-
 
 export default component$(() => {
   // 表單資料內容
@@ -28,7 +26,6 @@ export default component$(() => {
     partnerNum : { check : false , value : '' , title : '同行者人數'},
     childSeatNum : { check : false , value : '' , title : '兒童座椅數量'},
   },)
-
 
   // 縣市郵遞區號
   const zipJson = useSignal(zipCodeJson);
@@ -68,7 +65,6 @@ export default component$(() => {
   const message = useSignal('');
   const modalCtl = useSignal(false)
 
-
   return (
     <>
       <div class={'h-[100vh] relative flex items-center justify-center px-2'}>
@@ -97,7 +93,7 @@ export default component$(() => {
           </p>
         </div>
       </div>
-      {
+      { // Loading 效果
         isLoading.value ?
         <div id="loading"
           class={['fixed z-50 top-0 left-0 h-full flex justify-center items-center bg-gray-100 w-full transition-all ease-linear',isBgColor.value ? '' : 'opacity-0']}
@@ -239,7 +235,7 @@ export default component$(() => {
           <button
             class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2 text-gray-100 mt-2'}
             onClick$={()=>{
-              // 創建一個新的 FormData 對象
+              // 創建一個新的 Form
               const postForm = new FormData();
               // 將表單資料添加到 FormData 對象中
               postForm.append('name', formData.value.name.value);
@@ -250,7 +246,6 @@ export default component$(() => {
               postForm.append('vegetarianNum', formData.value.vegetarianNum.value);
               postForm.append('partnerNum', formData.value.partnerNum.value);
               postForm.append('childSeatNum', formData.value.childSeatNum.value);
-
 
               const array = Object.values(formData.value)
               for(let i=0 ; i<array.length ; i++ ){
@@ -269,7 +264,7 @@ export default component$(() => {
               const fetchOptions: RequestInit = {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json' // 設定傳送資料的類型為 JSON
+                  'Content-Type': 'application/json'
                 },
                 mode: 'no-cors',
                 body:postForm,
@@ -285,12 +280,17 @@ export default component$(() => {
               })
               .catch(error => {
                 console.error('發生錯誤:', error);
+                message.value = '發生了一些錯誤，請稍後再試！或是聯絡我們，謝謝！'
+                modalCtl.value = true
+                isBgColor.value = false
+                isLoading.value = false
               });
             }}
           >
             送出資料!
           </button>
         </div>
+        {/* modal 元件 */}
         {modalCtl.value ?
           <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
             <div class="absolute bg-black opacity-70 inset-0 z-0"></div>
@@ -310,6 +310,7 @@ export default component$(() => {
             </div>
           </div> : ''
         }
+        {/* scrolly-video container */}
         <div id="scrolly-video"></div>
       </div>
     </>
