@@ -54,7 +54,7 @@ export default component$(() => {
       `
       new ScrollyVideo({
         scrollyVideoContainer: "scrolly-video",
-        src: "https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/videos/hotairballoon+-+Compressed+with+FlexClip.mp4",
+        src: "https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/videos/VID_20231004.mp4",
       });
     `
     document.head.appendChild(script);
