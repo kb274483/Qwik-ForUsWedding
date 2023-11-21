@@ -54,7 +54,7 @@ export default component$(() => {
       `
       new ScrollyVideo({
         scrollyVideoContainer: "scrolly-video",
-        src: "https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/videos/VID_20231004.mp4",
+        src: "https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/videos/temp_video_1700536251137.MP4",
       });
     `
     document.head.appendChild(script);
@@ -232,16 +232,12 @@ export default component$(() => {
             </Form>
           </div>
         </div>
-        <div class={"bg-white opacity-90 text-gray-600 absolute top-[55%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg flex justify-center"}>
-          <p>超級感謝！您的填寫，剩下最後一步了！</p>
-        </div>
         <div class={"bg-white opacity-90 text-gray-600 absolute top-[65%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg text-center"}>
+          <p>超級感謝！您的填寫，剩下最後一步了！</p>
           <p>最後請您按下下方的送出資料！</p>
           <p>我們期待您的到來！</p>
-        </div>
-        <div class={"bg-white opacity-90 text-white absolute top-[75%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg flex justify-center"}>
           <button
-            class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2'}
+            class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2 text-white'}
             onClick$={()=>{
               // 創建一個新的 FormData 對象
               const postForm = new FormData();
@@ -275,17 +271,17 @@ export default component$(() => {
                 headers: {
                   'Content-Type': 'application/json' // 設定傳送資料的類型為 JSON
                 },
-                body:postForm
+                mode: 'no-cors',
+                body:postForm,
               };
+              isLoading.value = true
+              isBgColor.value = true
               fetch(apiUrl,fetchOptions)
-              .then(response => {
-                if (!response.ok) {
-                  throw new Error(`Network response was not ok: ${response.statusText}`);
-                }
-                return response.json();
-              })
-              .then(data => {
-                console.log('API 傳回的資料:', data);
+              .then(() => {
+                message.value = '資料已成功送出，謝謝您的填寫！'
+                modalCtl.value = true
+                isBgColor.value = false
+                isLoading.value = false
               })
               .catch(error => {
                 console.error('發生錯誤:', error);
