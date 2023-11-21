@@ -54,7 +54,7 @@ export default component$(() => {
       `
       new ScrollyVideo({
         scrollyVideoContainer: "scrolly-video",
-        src: "https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/videos/temp_video_1700536251137.MP4",
+        src: "https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/videos/temp_video_1700561295148.MP4",
       });
     `
     document.head.appendChild(script);
