@@ -67,6 +67,8 @@ export default component$(() => {
   // Modal content
   const message = useSignal('');
   const modalCtl = useSignal(false)
+  // 在第一次送出資料後，鎖住送出按鈕，避免重複送出
+  const isSubmitLock = useSignal(false)
 
   return (
     <>
@@ -131,6 +133,9 @@ export default component$(() => {
                     formData.value.name.value = (event.target as HTMLInputElement).value
                     if((event.target as HTMLInputElement).value){
                       formData.value.name.check = false
+                    }
+                    if(isSubmitLock.value){
+                      isSubmitLock.value = false
                     }
                   }}
                 />  
@@ -238,6 +243,11 @@ export default component$(() => {
           <button
             class={'rounded bg-red-400 border-b-2 border-gray-700 active:bg-red-300 p-2 text-gray-100 mt-2'}
             onClick$={()=>{
+              if(isSubmitLock.value){
+                message.value = '您已經填過資料了喔，謝謝！'
+                modalCtl.value = true
+                return
+              }
               isLoading.value = true
               isBgColor.value = true
               // 創建一個新的 Form
@@ -276,13 +286,14 @@ export default component$(() => {
               };
               fetch(apiUrl,fetchOptions)
               .then(() => {
+                isSubmitLock.value = true
                 isBgColor.value = false
-                isLoading.value = false
                 message.value = '資料已成功送出，謝謝您的填寫！'
                 for(let i=0 ; i<array.length ; i++ ){
                   array[i].value = ''
                 }
                 setTimeout(() => {
+                  isLoading.value = false
                   modalCtl.value = true
                 }, 500);
               })
@@ -307,8 +318,18 @@ export default component$(() => {
                 <div class="p-3  mt-2 text-center space-x-4 md:block">
                   <p class="text-gray-600 text-lg font-semibold mb-2">{message.value}</p>
                   <button onClick$={()=>{
-                    message.value = ''
+                    if(isSubmitLock.value && message.value === '您已經填過資料了喔，謝謝！'){
+                      window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
+                      });
+                      setTimeout(() => {
+                        location.reload();
+                      }, 500);
+                    }
                     modalCtl.value = false
+                    message.value = ''
                   }}
                     class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100">
                     OK!
@@ -331,7 +352,7 @@ export const head: DocumentHead = {
   meta: [
     {
       name: "description",
-      content: "ROY & BUCCULA WEDDING",
+      content: "ROY & BUCCULA WEDDING INVITATION",
     },
   ],
 };
