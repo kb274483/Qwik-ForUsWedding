@@ -1,12 +1,33 @@
 import { component$ , useVisibleTask$ ,useSignal,useTask$ } from "@builder.io/qwik";
 import { type DocumentHead , Form } from "@builder.io/qwik-city";
 import openPhotoSrc from '../assets/53346273673.jpg';
+import ameiPhotoSrc from '../assets/amei.jpg';
+import yahooBanPhotoSrc from '../assets/yahooBan.png'
 import locationInfo from '../assets/2021091303064111.jpg';
 import zipCodeJson from '../assets/taiwan_districts.json';
 
+export const AmeiPhoto = component$(() => {
+  return (
+    <div class={'absolute top-[2%] md:top-[0%] z-0 w-40'}>
+      <img class={'w-full h-full rounded'} src={ameiPhotoSrc}
+        width={1024} height={683}
+      />
+    </div>
+  )
+});
+export const YahooBanPhoto = component$(() => {
+  return (
+    <div class={'rotate-[290deg] absolute top-[30%] max-w-[250px] -translate-y-1/2 z-10'}>
+      <img class={'w-full h-full rounded'} src={yahooBanPhotoSrc}
+        width={1024} height={683}
+      />
+    </div>
+  )
+});
+
 export const ImgOpenphoto = component$(() => {  
   return (
-    <div class={'p-4 bg-red-100'}>
+    <div class={'p-2 bg-red-100 relative z-10 md:mt-10'}>
       <p class={'text-white font-medium text-2xl text-end'}>
         Wedding Invitation
       </p>
@@ -28,6 +49,7 @@ export default component$(() => {
     vegetarianNum : { check : false , value : '' , title : '素食者人數'},
     partnerNum : { check : false , value : '' , title : '同行者人數'},
     childSeatNum : { check : false , value : '' , title : '兒童座椅數量'},
+    brideOrGroom : { check : false , value : '' , title : '新郎或是新娘的朋友'},
   },)
 
   // 縣市郵遞區號
@@ -72,8 +94,9 @@ export default component$(() => {
 
   return (
     <>
-      <div class={'h-[95vh] relative flex items-center justify-center p-2 max-w-[800px] mx-auto'}>
+      <div class={'h-[100vh] relative flex items-center justify-center p-2 max-w-[800px] mx-auto'}>
         <div>
+          <AmeiPhoto></AmeiPhoto>
           <ImgOpenphoto></ImgOpenphoto>
           <p class={'text-red-400 font-medium text-2xl mt-4'}>
             哈囉！
@@ -152,6 +175,20 @@ export default component$(() => {
                   <option value="1">Yes, 你結婚當然要到場啊！</option>
                   <option value="2">Sorry, 我很想參加，但是當天無法出席</option>
                   <option value="3">Not sure yet , 日期近一點才能確認</option>
+                </select>
+              </div>
+              <div class={'mt-2 mb-3'}>
+                <label class={'mb-1'}>請問您是新郎還是新娘的朋友?</label>
+                <select required
+                  class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
+                  onChange$={(event)=>{
+                    formData.value.brideOrGroom.value = (event.target as HTMLSelectElement).value
+                  }}
+                >
+                  <option value="" selected disabled>請選擇</option>
+                  <option value="男方">新郎（Roy）</option>
+                  <option value="女方">新娘（Buccula）</option>
+                  <option value="共同">共同的朋友</option>
                 </select>
               </div>
               <div class={'mt-2 mb-3'}>
@@ -261,6 +298,7 @@ export default component$(() => {
               postForm.append('vegetarianNum', formData.value.vegetarianNum.value);
               postForm.append('partnerNum', formData.value.partnerNum.value);
               postForm.append('childSeatNum', formData.value.childSeatNum.value);
+              postForm.append('brideOrGroom', formData.value.brideOrGroom.value);
 
               const array = Object.values(formData.value)
               for(let i=0 ; i<array.length ; i++ ){
@@ -311,11 +349,12 @@ export default component$(() => {
         </div>
         {/* modal 元件 */}
         {modalCtl.value ?
-          <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"   id="modal-id">
+          <div class="min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover" id="modal-id">
             <div class="absolute bg-black opacity-70 inset-0 z-0"></div>
-            <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
-              <div class="">          
-                <div class="p-3  mt-2 text-center space-x-4 md:block">
+            <YahooBanPhoto></YahooBanPhoto>
+            <div class="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white z-30">
+              <div class="">
+                <div class="p-3  mt-2 text-center space-x-4 md:block ">
                   <p class="text-gray-600 text-lg font-semibold mb-2">{message.value}</p>
                   <button onClick$={()=>{
                     if(isSubmitLock.value && message.value === '您已經填過資料了喔，謝謝！'){
