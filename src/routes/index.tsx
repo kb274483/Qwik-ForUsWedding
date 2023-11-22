@@ -5,6 +5,7 @@ import ameiPhotoSrc from '../assets/amei.jpg';
 import yahooBanPhotoSrc from '../assets/yahooBan.png'
 import locationInfo from '../assets/2021091303064111.jpg';
 import zipCodeJson from '../assets/taiwan_districts.json';
+import styles from './index.module.css'
 
 export const AmeiPhoto = component$(() => {
   return (
@@ -124,10 +125,17 @@ export default component$(() => {
       { // Loading 效果
         isLoading.value ?
         <div id="loading"
-          class={['fixed z-50 top-0 left-0 h-full flex justify-center items-center bg-gray-100 w-full transition-all ease-in-out duration-1000',isBgColor.value ? '' : 'opacity-0']}
+          class={[
+            'fixed z-50 top-0 left-0 h-full flex justify-center items-center bg-gray-100 w-full transition-all ease-in-out duration-1000',
+            isBgColor.value ? 'opacity-95' : 'opacity-0' 
+          ]}
         >
-          <div class={'text-center'}>
-            <svg class="animate-spin h-16 w-16 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          <div class={[styles.rectangleBounce]}>
+            <div class={styles.rectOne}></div>
+            <div class={styles.rectTwo}></div>
+            <div class={styles.rectThree}></div>
+            <div class={styles.rectFour}></div>
+            <div class={styles.rectFive}></div>
           </div>
         </div> : ''
       }
@@ -386,7 +394,6 @@ export default component$(() => {
     </>
   );
 });
-
 
 export const head: DocumentHead = {
   title: "ROY & BUCCULA",

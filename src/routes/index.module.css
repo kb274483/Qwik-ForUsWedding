@@ -1,0 +1,42 @@
+.rectangleBounce {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 10rem;
+  height: 8rem;
+  transition: all 300ms ease-in-out 0s;
+  z-index: 1;
+  gap: 0.5rem;
+} 
+.rectOne,
+.rectTwo,
+.rectThree,
+.rectFour,
+.rectFive {
+  width: 10%;
+  border-radius: 5px;
+  height: 100%;
+  background-color: rgb(177, 177, 177);
+  animation: rectangleBounce 1.5s infinite ease-in-out;
+}
+.rectTwo {
+  animation-delay: -1.4s;
+}
+.rectThree {
+  animation-delay: -1.3s;
+}
+.rectFour {
+  animation-delay: -1.2s;
+}
+.rectFive {
+  animation-delay: -1.1s;
+}
+ 
+@keyframes rectangleBounce {
+  0%, 40%, 100% {
+    transform:scaleY(0.4);
+  }
+  20% {
+    transform:scaleY(1);
+  }
+}
