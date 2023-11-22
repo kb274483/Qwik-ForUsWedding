@@ -8,7 +8,7 @@ import zipCodeJson from '../assets/taiwan_districts.json';
 
 export const AmeiPhoto = component$(() => {
   return (
-    <div class={'absolute top-[2%] md:top-[0%] z-0 w-40'}>
+    <div class={'absolute top-[0%] xs:top-[2%] md:top-[0%] z-0 w-40'}>
       <img class={'w-full h-full rounded'} src={ameiPhotoSrc}
         width={1024} height={683}
       />
@@ -17,7 +17,7 @@ export const AmeiPhoto = component$(() => {
 });
 export const YahooBanPhoto = component$(() => {
   return (
-    <div class={'rotate-[290deg] absolute top-[30%] max-w-[250px] -translate-y-1/2 z-10'}>
+    <div class={'absolute top-[30%] max-w-[250px] -translate-y-1/2 z-10'}>
       <img class={'w-full h-full rounded'} src={yahooBanPhotoSrc}
         width={1024} height={683}
       />
@@ -27,7 +27,7 @@ export const YahooBanPhoto = component$(() => {
 
 export const ImgOpenphoto = component$(() => {  
   return (
-    <div class={'p-2 bg-red-100 relative z-10 md:mt-10'}>
+    <div class={'p-3 bg-red-100 relative z-10 mt-12 xxs:mt-6 xs:mt-4 md:mt-12'}>
       <p class={'text-white font-medium text-2xl text-end'}>
         Wedding Invitation
       </p>
@@ -80,8 +80,8 @@ export default component$(() => {
       });
     `
     document.head.appendChild(script);
-    const timeoutFirst = setTimeout(() => (isBgColor.value = false), 1500);
-    const timeoutSecond = setTimeout(() => (isLoading.value = false), 2000);
+    const timeoutFirst = setTimeout(() => (isBgColor.value = false), 1800);
+    const timeoutSecond = setTimeout(() => (isLoading.value = false), 2300);
     cleanup(() => clearTimeout(timeoutFirst));
     cleanup(() => clearTimeout(timeoutSecond));
   })
@@ -98,10 +98,10 @@ export default component$(() => {
         <div>
           <AmeiPhoto></AmeiPhoto>
           <ImgOpenphoto></ImgOpenphoto>
-          <p class={'text-red-400 font-medium text-2xl mt-4'}>
+          <p class={'text-red-400 font-medium text-2xl mt-2'}>
             哈囉！
           </p>
-          <p class={'text-red-400 font-medium text-2xl mb-6'}>
+          <p class={'text-red-400 font-medium text-2xl mb-4'}>
             我們即將要舉辦我們的婚禮了！
           </p>
           <p class={'text-gray-600 font-medium text-lg'}>
@@ -116,7 +116,7 @@ export default component$(() => {
           <p class={'text-gray-600 font-medium text-lg'}>
             請先幫我們填寫下方的資訊，讓我們可以初步的安排當天的座位！
           </p>
-          <p class={'text-gray-600 font-medium mt-6 text-end'}>
+          <p class={'text-gray-600 font-medium mt-4 text-end'}>
             Roy & Buccula 浩銓 ＆ 韋潔 敬上
           </p>
         </div>
@@ -239,7 +239,7 @@ export default component$(() => {
               </div>
               <div class={'mt-2 mb-3'}>
                 <label class={'mb-1'}>請問您出席人數共幾位？</label>
-                <input type="number" name="text" required placeholder="請填寫阿拉伯數字即可，人數請包含自己唷！"
+                <input type="number" name="text" required placeholder="請填寫數字即可，人數請包含自己唷！"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
                     formData.value.partnerNum.value = (event.target as HTMLInputElement).value
@@ -248,7 +248,7 @@ export default component$(() => {
               </div>
               <div class={'mt-2 mb-3'}>
                 <label class={'mb-1'}>請問您素食需求人數？</label>
-                <input type="number" name="text" required placeholder="請填寫阿拉伯數字即可，還請一併考量同行親友"
+                <input type="number" name="text" required placeholder="請填寫數字即可，請一併考量同行親友"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
                     formData.value.vegetarianNum.value = (event.target as HTMLInputElement).value
@@ -257,7 +257,7 @@ export default component$(() => {
               </div>
               <div class={'mt-2 mb-3'}>
                 <label class={'mb-1'}>請問您需要幾張兒童座椅？</label>
-                <input type="number" name="text" required placeholder="如不需要，請填寫 0"
+                <input type="number" name="text" required placeholder="請填寫數字即可，如不需要請填0"
                   class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                   onInput$={(event)=>{
                     formData.value.childSeatNum.value = (event.target as HTMLInputElement).value
@@ -310,6 +310,8 @@ export default component$(() => {
                 if(array[i].check){
                   message.value = `請填寫${array[i].title}欄位,謝謝`
                   modalCtl.value = true
+                  isBgColor.value = false
+                  isLoading.value = false
                   return
                 }
               }
