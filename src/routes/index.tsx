@@ -11,7 +11,7 @@ export const AmeiPhoto = component$(() => {
   return (
     <div class={'absolute top-[0%] xs:top-[2%] md:top-[0%] z-0 w-40'} 
       data-aos="fade-up"
-      data-aos-delay="2000"
+      data-aos-delay="2500"
       data-aos-duration="1000"
       data-aos-easing="ease-in-out"
       data-aos-once="false"
@@ -201,14 +201,14 @@ export default component$(() => {
             width={1920} height={1080}
           />
         </div>
-        <div class={"bg-white opacity-90 text-gray-600 absolute top-[50%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}>
-          <div class={"container center"}
-            data-aos="fade-up"
-            data-aos-delay="50"
-            data-aos-duration="1000"
-            data-aos-easing="ease-in-out"
-            data-aos-once="false"
-          >
+        <div class={"bg-white opacity-90 text-gray-600 absolute top-[50%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}
+          data-aos="fade-up"
+          data-aos-delay="50"
+          data-aos-duration="1000"
+          data-aos-easing="ease-in-out"
+          data-aos-once="true"
+        >
+          <div class={"container center"}>
             <div class={'mt-2 mb-3'}>
               <label class={'mb-1'}>請問您的姓名？</label>
               <input type="text" name="text" required placeholder="請輸入您的姓名"

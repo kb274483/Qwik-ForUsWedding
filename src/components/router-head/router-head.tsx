@@ -14,6 +14,9 @@ export const RouterHead = component$(() => {
 
       <link rel="canonical" href={loc.url.href} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta property="og:site_name" content="Roy&BucculaWedding" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://elasticbeanstalk-ap-northeast-3-320080014524.s3.ap-northeast-3.amazonaws.com/photos/53346273673_f9e3d8b1ff_q.jpg" />
       <link rel="icon" type="image/svg+xml" href="/hand-in-hand.png" />
       <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></link>
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
