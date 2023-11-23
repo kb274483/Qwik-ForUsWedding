@@ -51,6 +51,7 @@ export const ImgOpenphoto = component$(() => {
   )
 });
 
+declare let AOS: any;
 export default component$(() => {
   // 表單資料內容
   const formData = useSignal({

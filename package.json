@@ -46,7 +46,6 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
-    "@cloudgakkai/qwik-aos": "^0.2.0",
     "@modular-forms/qwik": "^0.21.0"
   }
 }
