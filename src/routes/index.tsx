@@ -60,6 +60,7 @@ export default component$(() => {
     dietary : { check : false , value : '葷食' , title : '是否素食'},
     phone : { check : false , value : '' , title : '電話'},
     zipcode : { check : false , value : '' , title : '地址'},
+    city : { check : false , value : '' , title : '縣市區域'},
     address : { check : false , value : '' , title : '地址'},
     childSeatNum : { check : false , value : '' , title : '兒童座椅數量'},
     brideOrGroom : { check : false , value : '' , title : '新郎或是新娘的朋友'},
@@ -295,11 +296,12 @@ export default component$(() => {
                 class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 p-1 w-1/2"
                 onChange$={(event)=>{
                   formData.value.zipcode.value = (event.target as HTMLSelectElement).value
+                  formData.value.city.value = onSelCity.value
                 }}
               >
                 <option value={''} selected>請選擇您居住的區域</option>
                 {district.value.length > 1 ? district.value.map((item:any) => {
-                  return <option value={item.zip} key={item.zip}>{item.name}</option>
+                  return <option value={[item.zip,item.name]} key={item.zip}>{item.name}</option>
                 }) : ''
                 }
               </select>
@@ -390,6 +392,7 @@ export default component$(() => {
               postForm.append('name', formData.value.name.value);
               postForm.append('willingness', formData.value.willingness.value);
               postForm.append('phone', formData.value.phone.value);
+              postForm.append('city', formData.value.city.value);
               postForm.append('zipcode', formData.value.zipcode.value);
               postForm.append('address', formData.value.address.value);
               postForm.append('dietary', formData.value.dietary.value);
