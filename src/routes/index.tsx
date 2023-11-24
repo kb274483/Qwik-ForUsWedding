@@ -179,8 +179,8 @@ export default component$(() => {
       <div class={'h-[400vh] relative max-w-[800px] mx-auto'}>
         <div class={"bg-white opacity-80 text-gray-600 absolute top-[10%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}
           data-aos="zoom-in"
-          data-aos-delay="50"
-          data-aos-duration="800"
+          data-aos-delay="20"
+          data-aos-duration="500"
           data-aos-easing="ease-in-out"
           data-aos-once="false"
         >
@@ -193,8 +193,8 @@ export default component$(() => {
         </div>
         <div class={"bg-white text-gray-600 absolute top-[17%] xxs:top-[16%] xs:top-[15%] z-10 px-3 py-2 rounded-lg w-full font-medium text-lg"}
           data-aos="zoom-in"
-          data-aos-delay="50"
-          data-aos-duration="800"
+          data-aos-delay="20"
+          data-aos-duration="500"
           data-aos-easing="ease-in-out"
           data-aos-once="false"
         >
@@ -313,12 +313,12 @@ export default component$(() => {
               />
             </div>
             <div class={'mt-2 mb-3'}>
-              <label class={'mb-1'}>請問您的同行友人姓名以及是否素食?</label>
+              <label class={'mb-1'}>請問您的同行親友姓名以及是否素食?</label>
               <span class={'text-red-500 text-xs block'}>如沒有請留空白</span>
               {partner.map((item)=>
                 <>
                   <div class={'flex items-center'} key={item.id}>
-                    <input type="text" name="partnerName" required placeholder="請填寫友人姓名" 
+                    <input type="text" name="partnerName" required placeholder="請填寫親友姓名" 
                       class="border-2 text-gray-700 rounded focus:ring-orange-500 focus:border-orange-500 block w-full p-1"
                       onInput$={(event)=>{
                         item.name = (event.target as HTMLInputElement).value
