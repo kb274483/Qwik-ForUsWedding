@@ -1,3 +1,7 @@
+# 為了自己的婚禮而做的表單
+* 因為想增加搭熱氣球影片的效果，所以就自己做一個順便練習一個Qwik框架。
+* 後端就直接將資料透過Google App Script串到Google sheets，方便統計資料也不用另外架伺服器。
+
 # Qwik City App ⚡️
 
 - [Qwik Docs](https://qwik.builder.io/)
